@@ -12,7 +12,7 @@ public class MainController {
 
   @GetMapping("/")
   public String homePage() {
-    if (System.getenv("CHAT_APP_LOGLEVEL") == "ERROR") {
+    if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
       System.out.println("only errors");
     } else {
       System.out.println(new Date() + " " +
@@ -20,5 +20,17 @@ public class MainController {
               " Request / GET");
     }
     return "index";
+  }
+
+  @GetMapping("/enter")
+  public String enterPage() {
+    if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
+      System.out.println("only errors");
+    } else {
+      System.out.println(new Date() + " " +
+              INFO.getName() +
+              " Request /enter GET");
+    }
+    return "enter";
   }
 }
