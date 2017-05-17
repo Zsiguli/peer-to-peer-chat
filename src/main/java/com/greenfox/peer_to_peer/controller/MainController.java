@@ -12,9 +12,13 @@ public class MainController {
 
   @GetMapping("/")
   public String homePage() {
-    System.out.println(new Date() + " " +
-            INFO.getName() +
-            " Request / GET" );
+    if (System.getenv("CHAT_APP_LOGLEVEL") == "ERROR") {
+      System.out.println("only errors");
+    } else {
+      System.out.println(new Date() + " " +
+              INFO.getName() +
+              " Request / GET");
+    }
     return "index";
   }
 }
