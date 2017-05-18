@@ -6,9 +6,9 @@
 </head>
 <body>
 <h2>Enter</h2>
-<form>
+<form th:action="@{/addUser}" method="post" th:inline="text">
     <p>Choose your name:</p>
-    <input type="text" required="required"/>
+    <input type="text" required="required" name="name"/>
     <input type="submit" value="Enter"/>
 </form>
 </body>
