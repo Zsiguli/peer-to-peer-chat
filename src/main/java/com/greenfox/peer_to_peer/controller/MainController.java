@@ -26,14 +26,11 @@ public class MainController {
               INFO.getName() +
               " Request / GET");
     }
-    Map<String, String> env = System.getenv();
-    for (String envName : env.keySet()) {
-      System.out.format("%s=%s%n",
-              envName,
-              env.get(envName));
+    if (userRepository.count() == 0) {
+      return "redirect:/enter";
+    } else {
+      return "index";
     }
-
-    return "index";
   }
 
   @GetMapping("/enter")
@@ -45,7 +42,10 @@ public class MainController {
               INFO.getName() +
               " Request /enter GET");
     }
-    model.addAttribute("user", userRepository.findAll());
-    return "enter";
+    if (userRepository.count() != 0) {
+      return "redirect:/";
+    } else {
+      return "enter";
+    }
   }
 }
