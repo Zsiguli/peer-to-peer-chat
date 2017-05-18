@@ -60,4 +60,13 @@ public class MainController {
     }
     return "redirect:/";
   }
+
+  @PostMapping("/upgradeUser")
+  public String upgradeUser(@RequestParam("name") String name) {
+    User user = userRepository.findOne((long) 1);
+    System.out.println(user.getName());
+    user.setName(name);
+    userRepository.save(user);
+    return "redirect:/";
+  }
 }
