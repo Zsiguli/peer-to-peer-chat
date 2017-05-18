@@ -21,7 +21,7 @@ public class MainController {
   UserRepository userRepository;
 
   @GetMapping("/")
-  public String homePage() {
+  public String homePage(Model model) {
     if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
       System.out.println("only errors");
     } else {
@@ -32,12 +32,13 @@ public class MainController {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
+      model.addAttribute("users", userRepository.findAll());
       return "index";
     }
   }
 
   @GetMapping("/enter")
-  public String enterPage(Model model) {
+  public String enterPage() {
     if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
       System.out.println("only errors");
     } else {
