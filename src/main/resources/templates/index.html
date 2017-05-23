@@ -10,5 +10,9 @@
     <input type="text" th:value="${user.name}" name="name"/>
     <input type="submit" value="Upgrade"/>
 </form>
+<ul th:each="message : ${messages}" th:inline="text">
+    <li>[[${message.username}]] \n
+    [[${message.text}]]</li>
+</ul>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.greenfox.peer_to_peer.controller;
 
+import com.greenfox.peer_to_peer.model.Message;
+import com.greenfox.peer_to_peer.repository.MessageRepository;
 import com.greenfox.peer_to_peer.repository.UserRepository;
 import com.greenfox.peer_to_peer.service.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class MainController {
 
   @Autowired
   UserRepository userRepository;
+  @Autowired
+  MessageRepository messageRepository;
 
   @GetMapping("/")
   public String homePage(Model model) {
@@ -32,6 +36,9 @@ public class MainController {
       return "redirect:/enter";
     } else {
       model.addAttribute("users", userRepository.findAll());
+      Message message = new Message("App", "Hi there! Submit your message using the send button!");
+      messageRepository.save(message);
+      model.addAttribute("messages", messageRepository.findAll());
       return "index";
     }
   }
