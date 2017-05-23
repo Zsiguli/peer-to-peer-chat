@@ -1,8 +1,6 @@
 package com.greenfox.peer_to_peer.controller;
 
-import com.greenfox.peer_to_peer.model.Client;
 import com.greenfox.peer_to_peer.model.DTO;
-import com.greenfox.peer_to_peer.model.Message;
 import com.greenfox.peer_to_peer.model.Status;
 import com.greenfox.peer_to_peer.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +22,11 @@ public class MessageController {
   @CrossOrigin("*")
   @PostMapping("/api/message/receive")
   public Status receiveNewMessage(@RequestBody DTO dto) {
-    messageRepository.save(dto.getMessage());
-    RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
-    System.out.println(PEER_ADDRESS);
+    if (!dto.getClient().getId().equals(UNIQUE_ID)) {
+      messageRepository.save(dto.getMessage());
+      RestTemplate restTemplate = new RestTemplate();
+      restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
+    }
     return new Status("ok");
   }
-
-
 }
