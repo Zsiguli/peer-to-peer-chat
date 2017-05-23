@@ -99,7 +99,7 @@ public class MainController {
     dto.setMessage(new Message(userRepository.findOne((long) 1).getUsername(), text));
     dto.setClient(new Client(UNIQUE_ID));
     messageRepository.save(dto.getMessage());
-    System.out.println(PEER_ADDRESS);
+    System.out.println("enviroment variable \n\n" + PEER_ADDRESS + "\n");
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
     return "redirect:/";
