@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
-import java.util.Map;
 
 import static java.util.logging.Level.INFO;
 
@@ -55,6 +54,13 @@ public class MainController {
 
   @PostMapping("/addUser")
   public String addUser(@RequestParam("name") String name) {
+    if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
+      System.out.println("only errors");
+    } else {
+      System.out.println(new Date() + " " +
+              INFO.getName() +
+              " Request /addUser POST");
+    }
     if (userRepository.count() == 0) {
       userRepository.save(new User(name));
     }
@@ -63,6 +69,13 @@ public class MainController {
 
   @PostMapping("/upgradeUser")
   public String upgradeUser(@RequestParam("name") String name) {
+    if (System.getenv("CHAT_APP_LOGLEVEL").equals("ERROR")) {
+      System.out.println("only errors");
+    } else {
+      System.out.println(new Date() + " " +
+              INFO.getName() +
+              " Request /upgradeUser POST");
+    }
     User user = userRepository.findOne((long) 1);
     user.setName(name);
     userRepository.save(user);
