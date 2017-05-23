@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
 @Getter
 public class Client {
 
-  private String client;
+  private String id;
 }
