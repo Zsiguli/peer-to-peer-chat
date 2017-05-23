@@ -7,12 +7,17 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
 
   @Id
-  private String client;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  private String username;
+
+  public User(String name) {
+    username = name;
+  }
 
 }

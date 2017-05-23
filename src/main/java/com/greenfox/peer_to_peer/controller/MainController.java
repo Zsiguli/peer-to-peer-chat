@@ -80,8 +80,8 @@ public class MainController {
               INFO.getName() +
               " Request /upgradeUser POST");
     }
-    User user = userRepository.findOne("App");
-    user.setClient(name);
+    User user = userRepository.findOne((long) 1);
+    user.setUsername(name);
     userRepository.save(user);
     return "redirect:/";
   }
