@@ -4,6 +4,7 @@ import com.greenfox.peer_to_peer.model.DTO;
 import com.greenfox.peer_to_peer.model.Status;
 import com.greenfox.peer_to_peer.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +16,12 @@ public class MessageController {
   @Autowired
   MessageRepository messageRepository;
 
+  @CrossOrigin("*")
   @PostMapping("/api/message/receive")
   public Status receiveNewMessage(@RequestBody DTO dto) {
     messageRepository.save(dto.getMessage());
     RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject("https://afternoon-peak-66579.herokuapp.com/api/message/receive", dto, DTO.class);
+    restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")+ "/api/message/receive", dto, Status.class);
     return new Status("ok");
   }
 }
