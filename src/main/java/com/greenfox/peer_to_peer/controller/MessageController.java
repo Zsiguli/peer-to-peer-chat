@@ -1,6 +1,5 @@
 package com.greenfox.peer_to_peer.controller;
 
-import com.greenfox.peer_to_peer.model.Client;
 import com.greenfox.peer_to_peer.model.DTO;
 import com.greenfox.peer_to_peer.model.Status;
 import com.greenfox.peer_to_peer.repository.MessageRepository;
@@ -20,8 +19,7 @@ public class MessageController {
   public Status receiveNewMessage(@RequestBody DTO dto) {
     messageRepository.save(dto.getMessage());
     RestTemplate restTemplate = new RestTemplate();
-    dto.setClient(new Client(System.getenv("CHAT_APP_UNIQUE_ID")));
-    restTemplate.postForObject(System.getenv("CHAT_APP_PEER_ADDRESS")+ "/api/message/receive", dto, DTO.class);
+    restTemplate.postForObject("https://afternoon-peak-66579.herokuapp.com/api/message/receive", dto, DTO.class);
     return new Status("ok");
   }
 }
