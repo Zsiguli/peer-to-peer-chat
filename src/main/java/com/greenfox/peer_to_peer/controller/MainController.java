@@ -1,5 +1,9 @@
 package com.greenfox.peer_to_peer.controller;
 
+import com.greenfox.peer_to_peer.model.Client;
+import com.greenfox.peer_to_peer.model.DTO;
+import com.greenfox.peer_to_peer.model.Message;
+import com.greenfox.peer_to_peer.model.Status;
 import com.greenfox.peer_to_peer.repository.MessageRepository;
 import com.greenfox.peer_to_peer.repository.UserRepository;
 import com.greenfox.peer_to_peer.service.User;
@@ -9,9 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 
+import static com.greenfox.peer_to_peer.controller.MessageController.PEER_ADDRESS;
+import static com.greenfox.peer_to_peer.controller.MessageController.UNIQUE_ID;
 import static java.util.logging.Level.INFO;
 
 @Controller
@@ -35,7 +42,7 @@ public class MainController {
       return "redirect:/enter";
     } else {
       model.addAttribute("users", userRepository.findAll());
-      model.addAttribute("messages", messageRepository.findAll());
+      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampDesc());
       return "index";
     }
   }
@@ -83,6 +90,17 @@ public class MainController {
     User user = userRepository.findOne((long) 1);
     user.setUsername(name);
     userRepository.save(user);
+    return "redirect:/";
+  }
+
+  @PostMapping("/sendMessage")
+  public String sendMessage(@RequestParam String text) {
+    DTO dto = new DTO();
+    dto.setMessage(new Message(userRepository.findOne((long) 1).getUsername(), text));
+    dto.setClient(new Client(UNIQUE_ID));
+    messageRepository.save(dto.getMessage());
+    RestTemplate restTemplate = new RestTemplate();
+    restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
     return "redirect:/";
   }
 }
