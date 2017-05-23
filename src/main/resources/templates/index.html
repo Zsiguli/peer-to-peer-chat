@@ -7,12 +7,16 @@
 <body>
 <h2>Peer To Peer Chat program</h2>
 <form th:each="user : ${users}" th:action="@{/upgradeUser}" method="post">
-    <input type="text" th:value="${user.name}" name="name"/>
+    <input type="text" th:value="${user.client}" name="client"/>
     <input type="submit" value="Upgrade"/>
 </form>
 <ul th:each="message : ${messages}" th:inline="text">
-    <li>[[${message.username}]] \n
+    <li>[[${message.username}]] <br/>
     [[${message.text}]]</li>
 </ul>
+<form>
+    <input type="text" name="text"/>
+    <input type="submit" value="send"/>
+</form>
 </body>
 </html>

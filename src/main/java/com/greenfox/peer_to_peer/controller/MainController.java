@@ -1,6 +1,5 @@
 package com.greenfox.peer_to_peer.controller;
 
-import com.greenfox.peer_to_peer.model.Message;
 import com.greenfox.peer_to_peer.repository.MessageRepository;
 import com.greenfox.peer_to_peer.repository.UserRepository;
 import com.greenfox.peer_to_peer.service.User;
@@ -36,8 +35,6 @@ public class MainController {
       return "redirect:/enter";
     } else {
       model.addAttribute("users", userRepository.findAll());
-      Message message = new Message("App", "Hi there! Submit your message using the send button!");
-      messageRepository.save(message);
       model.addAttribute("messages", messageRepository.findAll());
       return "index";
     }
@@ -83,8 +80,8 @@ public class MainController {
               INFO.getName() +
               " Request /upgradeUser POST");
     }
-    User user = userRepository.findOne((long) 1);
-    user.setName(name);
+    User user = userRepository.findOne("App");
+    user.setClient(name);
     userRepository.save(user);
     return "redirect:/";
   }

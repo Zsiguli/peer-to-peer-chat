@@ -14,11 +14,11 @@ import java.sql.Timestamp;
 @Table(name = "messages")
 public class Message {
 
+  @Id
+  Long id;
   String username;
   String text;
   Timestamp timestamp;
-  @Id
-  Long id;
 
   public Message(String user, String message) {
     username = user;

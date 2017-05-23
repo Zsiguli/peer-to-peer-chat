@@ -13,11 +13,6 @@ import javax.persistence.*;
 public class User {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
-  private String name;
+  private String client;
 
-  public User (String newName) {
-    name = newName;
-  }
 }
