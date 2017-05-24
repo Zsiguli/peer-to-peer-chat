@@ -39,12 +39,19 @@ public class MessageController {
     if (!dto.getClient().getId().equals(UNIQUE_ID)) {
       messageRepository.save(dto.getMessage());
       RestTemplate restTemplate = new RestTemplate();
-      restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
+      Status receivedStatus = restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
+      System.out.println();
+      System.out.println();
+      System.out.println();
+      System.out.println("received status: " + receivedStatus.getClass().getDeclaredFields().length);
+      System.out.println();
+      System.out.println();
+      System.out.println();
     }
     Status status = new Status("ok");
     System.out.println();
     System.out.println();
-    System.out.println("status: " + status);
+    System.out.println("own status: " + status.getClass().getDeclaredFields().length);
     System.out.println();
     System.out.println();
     return status;
