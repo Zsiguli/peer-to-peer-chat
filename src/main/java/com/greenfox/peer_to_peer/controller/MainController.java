@@ -100,7 +100,7 @@ public class MainController {
     dto.setClient(new Client(UNIQUE_ID));
     messageRepository.save(dto.getMessage());
     RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Error.class);
+    restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
     return "redirect:/";
   }
 }
