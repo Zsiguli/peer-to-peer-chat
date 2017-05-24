@@ -37,8 +37,11 @@ public class MessageController {
     System.out.println();
     System.out.println();
     if (!dto.getClient().getId().equals(UNIQUE_ID)) {
+      System.out.println("in the if");
       messageRepository.save(dto.getMessage());
+      System.out.println("done");
       RestTemplate restTemplate = new RestTemplate();
+      System.out.println("template done");
       Status receivedStatus = restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
       System.out.println();
       System.out.println();
