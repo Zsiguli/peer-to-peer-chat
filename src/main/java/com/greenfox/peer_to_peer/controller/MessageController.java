@@ -27,6 +27,8 @@ public class MessageController {
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(PEER_ADDRESS + "/api/message/receive", dto, Status.class);
     }
-    return new Status("ok");
+    Status status = new Status("ok");
+    System.out.println(status);
+    return status;
   }
 }
