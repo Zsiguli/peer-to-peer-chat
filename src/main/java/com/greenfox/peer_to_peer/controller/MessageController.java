@@ -25,10 +25,10 @@ public class MessageController {
     System.out.println();
     System.out.println();
     System.out.println();
-    System.out.println("all fields: " + dto.getClass().getDeclaredFields());
-    System.out.println("client fields: " + dto.getClient().getClass().getDeclaredFields());
+    System.out.println("all fields: " + dto.getClass().getDeclaredFields().length);
+    System.out.println("client fields: " + dto.getClient().getClass().getDeclaredFields().length);
     System.out.println("client id: " + dto.getClient().getId());
-    System.out.println("message fields: " + dto.getMessage().getClass().getDeclaredFields());
+    System.out.println("message fields: " + dto.getMessage().getClass().getDeclaredFields().length);
     System.out.println("msg id: " + dto.getMessage().getId());
     System.out.println("msg text: " + dto.getMessage().getText());
     System.out.println("msg timestamp: " + dto.getMessage().getTimestamp());
